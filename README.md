@@ -22,7 +22,7 @@ unyak/
 `https://raw.githubusercontent.com/edbong123/skills-lovable/main/<path>`
 
 ## Current version
-`8`
+`10`
 
 ## How to test the update path
 1. Install the skill, run `/start` once (fetches version 1).

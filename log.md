@@ -6,7 +6,7 @@ Capture one important thing — a decision, an error, or a direction change.
 1. Print `[unyak debug] /log: begin`.
 2. If the user didn't already describe what happened, ask for one sentence. Print `[unyak debug] /log: awaiting one-sentence input`.
 3. **Classify** the sentence as `decision` or `error`. Print `[unyak debug] /log: classified as <decision|error>`.
-4. **Append** a structured entry to the matching section of `unyak/agents.md`:
+4. **Append** a structured entry to the matching section of the root `agents.md`:
    ```
    - [<YYYY-MM-DD>] <one-line summary> — <short context>
    ```

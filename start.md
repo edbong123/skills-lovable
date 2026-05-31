@@ -15,7 +15,7 @@ The order matters: **analyze the project first, infer as much as possible, then 
    - **Code structure:** top-level folders, route/page files, component names, data models, file naming patterns. What does the app appear to *do*?
    - **Stack:** `package.json` dependencies, lockfiles, `supabase/`, `convex/`, `prisma/`, framework configs, `.env` key *names* only (never values). Print `[unyak debug] /start: detected stack = <list or none>`.
    - **Existing context/spec docs:** any `agents.md`, `AGENTS.md`, `README.md`, `PRD`, `spec`, `plan`, `/docs`, or similar. Read them. Print `[unyak debug] /start: found spec sources = <list or none>`.
-   - **Existing unyak/agents.md:** if one already exists, read its Project Intent, Decision Log, and constraints.
+   - **Existing root `agents.md`:** if one already exists, read its Project Intent, Decision Log, and constraints.
 
 4. **Infer intent from the code itself — always, even with no spec docs.** Spec/README absence is NOT a reason to infer nothing. If any source files exist, derive a best-effort Project Intent from them:
    - **What it is:** from routes, page names, primary components, and models. Example: routes `/booking`, `/clinics`, a `appointments` table → "an appointment-booking app for clinics."
@@ -65,7 +65,7 @@ The order matters: **analyze the project first, infer as much as possible, then 
 
 ### Phase 4 — Write
 
-12. **Write agents.md.** Load `templates/agents-md.md`. Fill **Project Intent** from the confirmed understanding + detected stack. Record any resolved contradictions as Decision Log entries (e.g. "Confirmed stack is Supabase, not Firebase as README stated"). Write to `unyak/agents.md` (and project root `agents.md` if the harness expects it). Print `[unyak debug] /start: wrote agents.md (intent + stack + <n> resolved decisions)`.
+12. **Write agents.md.** Load `templates/agents-md.md`. Fill **Project Intent** from the confirmed understanding + detected stack. Record any resolved contradictions as Decision Log entries (e.g. "Confirmed stack is Supabase, not Firebase as README stated"). Write to the project-root `agents.md` (the single canonical file — do NOT also write `unyak/agents.md`). Print `[unyak debug] /start: wrote agents.md (intent + stack + <n> resolved decisions)`.
 13. **Existing Project Intent handling.**
     - If the existing intent block is **empty or just the seed placeholder** ("Not set yet", "TBD"), treat it as unset and fill it freely. Print `[unyak debug] /start: existing intent empty/placeholder, filling`.
     - If it has **real user content**, never overwrite silently — show it, confirm changes, preserve anything still accurate. Print `[unyak debug] /start: existing intent populated, confirming before change`.

@@ -17,7 +17,7 @@ Manually check the Unyak public repo for newer logic files and selectively updat
    Do NOT use timestamps for this — GitHub raw URLs don't expose reliable per-file dates. Content comparison is the source of truth.
 
 ### agents.md — merge, never overwrite
-5. **Never overwrite `unyak/agents.md` or the root `agents.md`.** Its contents (Project Intent, Decision Log, Error Log, Session Summary) are the user's. Print `[unyak debug] /check-update: agents.md is user-owned, merge-only`.
+5. **Never overwrite the root `agents.md`.** Its contents (Project Intent, Decision Log, Error Log, Session Summary) are the user's. Print `[unyak debug] /check-update: agents.md is user-owned, merge-only`.
 6. Compare the user's `agents.md` **section structure** against the current `templates/agents-md.md`:
    - If the template defines a section the user's file is **missing** (e.g. a new section was added upstream), append that section heading with an empty/placeholder body. Print `[unyak debug] /check-update: merged new section "<name>" into agents.md`.
    - **Never** modify, reorder, or remove existing sections or their content. Never replace user text. Only additive merges of genuinely-missing sections.
