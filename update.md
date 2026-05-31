@@ -4,7 +4,7 @@ Run when the agent repeats mistakes, goes the wrong way, or context is stale.
 
 ## Steps
 1. Print `[unyak debug] /update: begin`.
-2. Read the full Decision Log + Error Log from `.unyak/agents.md`. Print `[unyak debug] /update: read log (<d> decisions, <e> errors)`.
+2. Read the full Decision Log + Error Log from `unyak/agents.md`. Print `[unyak debug] /update: read log (<d> decisions, <e> errors)`.
 3. **If MCP connected:** call the stub `@run_diagnosis` for cross-project analysis.
    - Router prints the `MCP STUB` line. Use the stub's fallback note and continue with local analysis.
    - Print `[unyak debug] /update: MCP path requested but stubbed, using local`.
