@@ -11,7 +11,7 @@ Manually check the Unyak public repo for newer logic files and selectively updat
 3. **If versions match, do a content check anyway** (a file could change without a version bump during development). Print `[unyak debug] /check-update: versions equal, running content diff`.
 
 ### Selective sync — logic files
-4. For each Unyak-owned logic file — `start.md`, `log.md`, `update.md`, `help.md`, `feedback.md`, `suggest.md`, `check-update.md`, `templates/agents-md.md`, `templates/project-intent.md` — fetch the remote copy and compare to the local copy **by content**:
+4. **Path note:** remote files live at the **repo root** (e.g. `<base>/start.md`), local copies live in `unyak/` (e.g. `unyak/start.md`). Fetch from root, compare against and write to the local `unyak/` copy. For each Unyak-owned logic file — `start.md`, `log.md`, `update.md`, `help.md`, `feedback.md`, `suggest.md`, `check-update.md`, `templates/agents-md.md`, `templates/project-intent.md` — fetch the remote copy and compare to the local copy **by content**:
    - **Identical** → skip. Print `[unyak debug] /check-update: <file> unchanged, skip`.
    - **Different** → overwrite the local file with the remote version (these are Unyak-owned; the user should not be editing them). Print `[unyak debug] /check-update: <file> changed, updated`.
    Do NOT use timestamps for this — GitHub raw URLs don't expose reliable per-file dates. Content comparison is the source of truth.
@@ -25,7 +25,7 @@ Manually check the Unyak public repo for newer logic files and selectively updat
 
 ### Finalize
 7. **Update `version.txt`** to the remote value only after a successful sync. Print `[unyak debug] /check-update: version.txt set to <remote>`.
-8. **Never touch** `state.json`, `config`, `feedback-local.md`, or any file the user created. Print `[unyak debug] /check-update: skipped local-only files (state.json, config)`.
+8. **Never touch** `state.json`, `config`, `debug.log.md`, `feedback-local.md`, or any file the user created. Print `[unyak debug] /check-update: skipped local-only files (state.json, config, debug.log.md)`.
 
 ## Output to user
 Plain-language summary:

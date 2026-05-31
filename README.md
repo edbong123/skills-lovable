@@ -4,7 +4,7 @@ Logic files the Unyak Lovable skill fetches on first run. The shipped ZIP is a t
 
 ## Layout
 ```
-.unyak/
+unyak/
 ├── agents.md              # seed agents.md (replaced by /start)
 ├── start.md               # /start logic
 ├── log.md                 # /log logic
@@ -22,7 +22,7 @@ Logic files the Unyak Lovable skill fetches on first run. The shipped ZIP is a t
 `https://raw.githubusercontent.com/edbong123/skills-lovable/main/<path>`
 
 ## Current version
-`1`
+`8`
 
 ## How to test the update path
 1. Install the skill, run `/start` once (fetches version 1).
