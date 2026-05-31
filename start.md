@@ -43,17 +43,33 @@ The order matters: **analyze the project first, infer as much as possible, then 
 8. **Decide whether there is anything to confirm.**
    - **If source files exist:** there is ALWAYS something inferred (at minimum "what it is"). Present it. Going to the interview with no inference here is a bug — it means Phase 1 under-analyzed. Print `[unyak debug] /start: inferred <n> field(s), presenting for confirmation`.
    - **Only if the project is truly empty** (no source files per the definition above): skip confirmation and run the intent interview. Print `[unyak debug] /start: empty project, running interview`.
-9. **Present the populated inference, then confirm.** First SHOW the user the actual inferred summary text (project purpose, audience, stack, constraints) — never ask "is this right?" without the summary visible directly above the question. Then ask whether it's correct. Print `[unyak debug] /start: presented draft (<n> fields) for confirmation`.
-   - Do not render the confirmation control until the summary has been written out. An empty or placeholder summary must never reach a confirmation prompt.
-10. **Ask only for what's missing or unconfirmed.** Use `templates/project-intent.md` as the checklist, but SKIP any question the analysis already answered and the user confirmed. Ask one at a time, plain language, only for genuine gaps. Print `[unyak debug] /start: asking gap question <n> (<field>)` before each. If everything was inferred and confirmed, do not re-ask.
+
+9. **Write the inferred summary as plain chat text FIRST, as its own message.** Before asking any confirmation question — and before rendering any structured question/choice widget — output the inference as visible prose in the chat, using exactly this block:
+
+   ```
+   Here's what I can tell about this project:
+
+   - **What it is:** <inferred, or "couldn't tell — need your input">
+   - **Who it's for:** <inferred, or "couldn't tell">
+   - **Stack:** <detected stack>
+   - **Constraints I noticed:** <e.g. auth present, payments wired, or "none obvious">
+   ```
+
+   This text MUST appear in the conversation on its own, not as a label inside a choice widget. The structured "Does this look right?" control (radio buttons etc.) does not reliably display surrounding prose, so the summary cannot live only there — it must be written out as a normal message immediately before. Print `[unyak debug] /start: wrote inferred summary to chat (what=<filled|empty> who=<filled|empty> stack=<n> constraints=<n>)`.
+
+   Hard rule: if every field above would be empty/"couldn't tell", do NOT show the summary or the confirmation — that means Phase 1 failed; go back and re-analyze the code. Never present a summary where all four lines are blank.
+
+10. **Then ask for confirmation.** Only after the summary prose is on screen, ask whether it's right (free text or a simple yes / mostly / rewrite choice is fine). Print `[unyak debug] /start: confirmation requested`.
+
+11. **Ask only for what's missing or unconfirmed.** Use `templates/project-intent.md` as the checklist, but SKIP any question the analysis already answered and the user confirmed. Ask one at a time, plain language, only for genuine gaps. Print `[unyak debug] /start: asking gap question <n> (<field>)` before each. If everything was inferred and confirmed, do not re-ask.
 
 ### Phase 4 — Write
 
-11. **Write agents.md.** Load `templates/agents-md.md`. Fill **Project Intent** from the confirmed understanding + detected stack. Record any resolved contradictions as Decision Log entries (e.g. "Confirmed stack is Supabase, not Firebase as README stated"). Write to `unyak/agents.md` (and project root `agents.md` if the harness expects it). Print `[unyak debug] /start: wrote agents.md (intent + stack + <n> resolved decisions)`.
-12. **Existing Project Intent handling.**
+12. **Write agents.md.** Load `templates/agents-md.md`. Fill **Project Intent** from the confirmed understanding + detected stack. Record any resolved contradictions as Decision Log entries (e.g. "Confirmed stack is Supabase, not Firebase as README stated"). Write to `unyak/agents.md` (and project root `agents.md` if the harness expects it). Print `[unyak debug] /start: wrote agents.md (intent + stack + <n> resolved decisions)`.
+13. **Existing Project Intent handling.**
     - If the existing intent block is **empty or just the seed placeholder** ("Not set yet", "TBD"), treat it as unset and fill it freely. Print `[unyak debug] /start: existing intent empty/placeholder, filling`.
     - If it has **real user content**, never overwrite silently — show it, confirm changes, preserve anything still accurate. Print `[unyak debug] /start: existing intent populated, confirming before change`.
-13. Trigger the "after /start" promotion (router handles one-per-session rule).
+14. Trigger the "after /start" promotion (router handles one-per-session rule).
 
 ## Output to user
 1. The inferred understanding (what was detected from the project).
